@@ -1,9 +1,11 @@
 import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Task from './components/getuser/Task';
-import Add from './components/adduser/Add';
-import Edit from './components/updateuser/Edit';
+import Add from './components/addTask/Add';
+import Edit from './components/updateTask/Edit';
 import Navbar from './components/Navbar';
+
+
 
 const App=()=>{
   return (

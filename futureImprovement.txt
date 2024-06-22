@@ -1,0 +1,5 @@
+1-  Can implement user authentication and authorization
+2-Adding functionality to categorize tasks (e.g., work, personal, urgent) 
+3- can filter tasks based on category
+4- Can implement notifications and reminders for upcoming task due dates
+5-Optimizing the performance of the application for large number of tasks

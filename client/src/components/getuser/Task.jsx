@@ -57,8 +57,8 @@ const User = () => {
                             <td>{user.desc}</td>
                             <td>{new Date(user.dueDate).toLocaleDateString()}</td>
                             <td className='actionButtons'>
-                                <button onClick={()=> deleteUser(user._id)}><i className="">Delete</i></button>
-                                <Link to={`/edit/`+user._id}><i>Edit </i></Link>
+                                <button onClick={()=> deleteUser(user._id)}><i className="fa-solid fa-trash"></i></button>
+                                <Link to={`/edit/`+user._id}><i className='fa-solid fa-pen-to-square'> </i></Link>
                             </td>
                         </tr>
                         )

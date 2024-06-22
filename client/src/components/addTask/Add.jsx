@@ -16,7 +16,7 @@ const Add = () => {
   const navigate = useNavigate();
 
   const inputHandler = (e) =>{
-    // console.log(e.target);
+      console.log(e.target);
       const {name, value} = e.target;
       setUser({...user, [name]:value});
       console.log(value);
@@ -28,9 +28,8 @@ const Add = () => {
 
     await axios.post("http://localhost:8000/api/create", user)
     .then((response)=>{
-       toast.success(response.data.msg, {position:"top-right"})
-      //  console.log('Data sent successfully:', response.data);
-
+       toast.success(response.data.msg, {position:"bottom-right",marginTop:"100"})
+       console.log('Data sent successfully:', response.data);
        navigate("/")
     })
     .catch(error => console.log(error))

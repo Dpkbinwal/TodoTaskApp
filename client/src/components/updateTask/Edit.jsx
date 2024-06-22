@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
-import "../adduser/add.css";
+import "../addTask/add.css";
 import toast from 'react-hot-toast';
 
 const Edit = () => {

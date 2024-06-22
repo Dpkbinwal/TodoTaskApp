@@ -41,7 +41,7 @@
 }
 
 .actionButtons{
-    display: grid;
+    /* display: grid; */
     gap: 2px;
 }
 .actionButtons button{
