@@ -2,18 +2,17 @@ import User from "../model/userModel.js";
 
 export const create = async(req, res)=>{
     try {
-
-        
-
         const userData = new User(req.body);  
-        console.log(userData.dueDate);
+        // console.log(userData.dueDate);
+        console.log("from"+userData.userId);
+        
 
         if(!userData){
             return res.status(404).json({msg: "User data not found"});
         }
 
         await userData.save();
-        res.status(200).json({msg: "User created successfully"});
+        res.status(200).json({msg: "Task Added successfully"});
 
     } catch (error) {
         res.status(500).json({error: error});
@@ -21,19 +20,30 @@ export const create = async(req, res)=>{
 }
 
 
-export const getAll = async(req, res) =>{
-    try {
+// export const getAll = async(req, res) =>{
+//     try {
 
-        const userData = await User.find();
-        if(!userData){
-            return res.status(404).json({msg:"User data not found"});
-        }
-        res.status(200).json(userData);
+//         const userData = await User.find();
+//         if(!userData){
+//             return res.status(404).json({msg:"Task data not found"});
+//         }
+//         res.status(200).json(userData);
         
+//     } catch (error) {
+//         res.status(500).json({error: error});
+//     }
+// }
+
+export const getAll = async (req, res) => {
+    const { userId } = req.params;
+  
+    try {
+      const todos = await User.find({ userId });
+      res.status(200).json(todos);
     } catch (error) {
-        res.status(500).json({error: error});
+      res.status(500).json({ message: error.message });
     }
-}
+  };
 
 
 export const getOne = async(req, res) =>{
@@ -42,7 +52,7 @@ export const getOne = async(req, res) =>{
         const id = req.params.id;
         const userExist = await User.findById(id);
         if(!userExist){
-            return res.status(404).json({msg: "User not found"});
+            return res.status(404).json({msg: "Task not found"});
         }
         res.status(200).json(userExist);
         
@@ -58,11 +68,11 @@ export const update = async(req, res) =>{
         const id = req.params.id;
         const userExist = await User.findById(id);
         if(!userExist){
-            return res.status(401).json({msg:"User not found"});
+            return res.status(401).json({msg:"Task not found"});
         }
 
         const updatedData = await User.findByIdAndUpdate(id, req.body, {new:true});
-        res.status(200).json({msg: "User updated successfully"});
+        res.status(200).json({msg: "Task updated successfully"});
         
     } catch (error) {
         res.status(500).json({error: error});
@@ -76,10 +86,10 @@ export const deleteUser = async(req, res) =>{
         const id = req.params.id;
         const userExist = await User.findById(id);
         if(!userExist){
-            return res.status(404).json({msg: "User not exist"});
+            return res.status(404).json({msg: "Task not exist"});
         }
         await User.findByIdAndDelete(id);
-        res.status(200).json({msg: "User deleted successfully"});
+        res.status(200).json({msg: "Task deleted successfully"});
         
     } catch (error) {
         res.status(500).json({error: error});

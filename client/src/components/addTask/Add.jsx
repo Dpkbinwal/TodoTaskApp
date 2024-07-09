@@ -4,16 +4,22 @@ import axios from "axios";
 import "./add.css";
 import toast from 'react-hot-toast';
 
+
 const Add = () => {
+
+
 
   const userInfo={
       title:"",
       description:"",
       date:"",
   }
-
+  
   const [user, setUser] = useState(userInfo);
   const navigate = useNavigate();
+
+  const userId=localStorage.getItem('userId');
+
 
   const inputHandler = (e) =>{
       console.log(e.target);
@@ -24,9 +30,12 @@ const Add = () => {
 
   const submitForm = async(e) =>{
     e.preventDefault();
-    console.log(e);
+    // console.log(e);
 
-    await axios.post("http://localhost:8000/api/create", user)
+
+
+
+    await axios.post("http://localhost:8000/api/create", {...user,userId})
     .then((response)=>{
        toast.success(response.data.msg, {position:"bottom-right",marginTop:"100"})
        console.log('Data sent successfully:', response.data);

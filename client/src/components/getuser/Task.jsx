@@ -2,20 +2,39 @@ import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import toast from "react-hot-toast";
 import "./task.css";
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 
 const User = () => {
+    
+    const checkCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+      };
+
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    useEffect(() => {
+        const cookie = checkCookie('jwt'); // Replace 'yourCookieName' with the actual cookie name
+        setIsAuthenticated(cookie !== null);
+      },[]);
+      console.log(isAuthenticated);
+
+
+
+
 
   const [users, setUsers] = useState([]);
 
   useEffect(()=>{
+    const storedUserId = localStorage.getItem('userId');
 
-    const fetchData = async()=>{
-        const response = await axios.get("http://localhost:8000/api/getall");
+    const fetchData = async(userId)=>{
+        const response = await axios.get(`http://localhost:8000/api/getall/${userId}`);
         setUsers(response.data);
     }
 
-    fetchData();
+    fetchData(storedUserId);
 
   },[])
 
@@ -28,6 +47,10 @@ const User = () => {
       .catch((error) =>{
         console.log(error);
       })
+  }
+  const navigate=useNavigate();
+  if(!isAuthenticated){
+   return navigate('/login')
   }
 
   return (
